@@ -15,4 +15,12 @@ class PeopleControllerTest < ActionDispatch::IntegrationTest
     data = JSON.parse(response.body)
     assert_equal Person.count, data.length
   end
+
+  test "show" do
+    get "/people/#{Person.first.id}.json"
+    assert_response 200
+
+    data = JSON.parse(response.body)
+    assert_equal ["id", "first_name", "last_name", "email", "phone_number", "short_bio", "linkedin_url", "twitter_handle", "personal_blog_url", "online_resume_url", "github_url", "photo", "password_digest", "created_at", "updated_at"], data.keys
+  end
 end

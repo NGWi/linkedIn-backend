@@ -17,4 +17,9 @@ class PeopleController < ApplicationController
     @people = Person.all
     render :index
   end
+
+  def show
+    @person = Person.find_by(id: params[:id])
+    render :show
+  end
 end

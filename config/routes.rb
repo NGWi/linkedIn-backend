@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get "/people/:id" => "people#show"
   post "/sessions" => "sessions#create"
   patch "/people/:id" => "people#update"
+  delete "/people/:id" => "people#destroy"
 
   # Defines the root path route ("/")
   # root "posts#index"

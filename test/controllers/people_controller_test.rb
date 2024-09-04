@@ -1,6 +1,16 @@
 require "test_helper"
 
 class PeopleControllerTest < ActionDispatch::IntegrationTest
+  setup do
+    @person = Person.first
+    # pp "Person in setup: #{@person.id}"
+    person = @person
+    post "/sessions.json", params: { email: person.email, password: "password" }
+    data = JSON.parse(response.body)
+    # pp "Setup data: #{data}"
+    @jwt = data["jwt"]
+  end
+  
   test "create" do
     assert_difference "Person.count", 1 do
       post "/people.json", params: { first_name: "Test", email: "test@test.com", password: "password", password_confirmation: "password" }
@@ -17,16 +27,20 @@ class PeopleControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "show" do
-    get "/people/#{Person.first.id}.json"
+    person = Person.first
+    # pp "Person to be passed to show: #{person.id}"
+    get "/people/#{person.id}.json"
     assert_response 200
 
     data = JSON.parse(response.body)
-    assert_equal ["id", "first_name", "last_name", "email", "phone_number", "short_bio", "linkedin_url", "twitter_handle", "personal_blog_url", "online_resume_url", "github_url", "photo", "password_digest", "created_at", "updated_at"], data.keys
+    assert_equal ["id", "first_name", "last_name", "email", "phone_number", "short_bio", "linkedin_url", "twitter_handle", "personal_blog_url", "online_resume_url", "github_url", "photo",  "created_at", "updated_at"], data.keys
   end
 
   test "update" do
-    person = Person.first
-    patch "/people/#{person.id}.json", params: { first_name: "Updated name" }
+    @person = Person.first
+    # pp "Person to be passed to update: #{@person.id}"
+    patch "/people/#{@person.id}.json", params: { id: @person.id,  first_name: "Updated name" }, headers: { "Authorization" => "Bearer #{@jwt}" }
+    # pp @jwt
     assert_response 200
 
     data = JSON.parse(response.body)

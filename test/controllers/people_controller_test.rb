@@ -37,9 +37,8 @@ class PeopleControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "update" do
-    @person = Person.first
     # pp "Person to be passed to update: #{@person.id}"
-    patch "/people/#{@person.id}.json", params: { id: @person.id,  first_name: "Updated name" }, headers: { "Authorization" => "Bearer #{@jwt}" }
+    patch "/people/#{@person.id}.json", params: { first_name: "Updated name" }, headers: { "Authorization" => "Bearer #{@jwt}" }
     # pp @jwt
     assert_response 200
 
@@ -53,7 +52,7 @@ class PeopleControllerTest < ActionDispatch::IntegrationTest
     data = JSON.parse(response.body)
     @jwt = data["jwt"]
     assert_difference "Person.count", -1 do
-      delete "/people/#{person.id}.json", headers: { Authorization: "Bearer #{@jwt}" }
+      delete "/people/#{@person.id}.json", headers: { Authorization: "Bearer #{@jwt}" }
       assert_response 200
     end
   end

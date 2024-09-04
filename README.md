@@ -3,6 +3,7 @@
 To get the
 application up and running:
 
+Create a config/master.key file and paste in the master key. Or create your own (Google it :))
 Remember to run:
 * bundle install
 * db:create

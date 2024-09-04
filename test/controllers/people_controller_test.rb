@@ -34,8 +34,12 @@ class PeopleControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "destroy" do
+    @person = Person.all[1]
+    post "/sessions.json", params: { email: @person.email, password: "password" }
+    data = JSON.parse(response.body)
+    @jwt = data["jwt"]
     assert_difference "Person.count", -1 do
-      delete "/people/#{Person.first.id}.json"
+      delete "/people/#{person.id}.json", headers: { Authorization: "Bearer #{@jwt}" }
       assert_response 200
     end
   end

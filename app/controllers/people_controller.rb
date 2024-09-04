@@ -45,7 +45,11 @@ class PeopleController < ApplicationController
 
   def destroy
     @person = Person.find_by(id: params[:id])
-    @person.destroy
-    render json: { message: "Deleted Successfully" }
+    if @person == current_person
+      @person.destroy
+      render json: { message: "Deleted Successfully" }
+    else
+      render json: { message: "Unauthorized" }, status: :unauthorized
+    end
   end
 end

@@ -3,11 +3,12 @@
 To get the
 application up and running:
 
+Create a config/master.key file and paste in the master key. Or create your own (Google it :))
 Remember to run:
 * bundle install
-* db:create
-* db:migrate
-* db:seed
+* rails db:create
+* rails db:migrate
+* rails db:seed
 * rails test
 * rails server
 

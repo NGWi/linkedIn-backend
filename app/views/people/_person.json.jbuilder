@@ -10,7 +10,7 @@ json.personal_blog_url person.personal_blog_url
 json.online_resume_url person.online_resume_url
 json.github_url person.github_url
 json.photo person.photo 
-json.password_digest person.password_digest
+# json.password_digest person.password_digest
 json.created_at person.created_at
 json.updated_at person.updated_at
 

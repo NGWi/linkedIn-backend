@@ -3,7 +3,7 @@
 one:
   first_name: MyString
   last_name: MyString
-  email: MyString
+  email: one@example.com
   phone_number: MyString
   short_bio: MyText
   linkedin_url: MyString
@@ -12,12 +12,12 @@ one:
   online_resume_url: MyString
   github_url: MyString
   photo: MyString
-  password_digest: MyString
+  password_digest: $2a$12$Cl11sFnB.Id6NS3Zmha8ieeVwjDCNIwu58NTF3NHRI5yndpHo78AK
 
 two:
   first_name: MyString
   last_name: MyString
-  email: MyString
+  email: two@example.com
   phone_number: MyString
   short_bio: MyText
   linkedin_url: MyString
@@ -26,4 +26,4 @@ two:
   online_resume_url: MyString
   github_url: MyString
   photo: MyString
-  password_digest: MyString
+  password_digest: $2a$12$Cl11sFnB.Id6NS3Zmha8ieeVwjDCNIwu58NTF3NHRI5yndpHo78AK

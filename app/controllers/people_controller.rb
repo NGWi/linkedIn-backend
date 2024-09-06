@@ -1,4 +1,5 @@
 class PeopleController < ApplicationController
+
   def create
     person = Person.new(
       first_name: params[:first_name],
@@ -24,23 +25,30 @@ class PeopleController < ApplicationController
   end
 
   def update
+    # pp "Params: #{params}"  
     @person = Person.find_by(id: params[:id])
-    @person.update(
-      first_name: params[:first_name] || @person.first_name,
-      last_name: params[:last_name] || @person.last_name,
-      email: params[:email] || @person.email,
-      phone_number: params[:phone_number] || @person.phone_number,
-      short_bio: params[:short_bio] || @person.short_bio,
-      linkedin_url: params[:linkedin_url] || @person.linkedin_url,
-      twitter_handle: params[:twitter_handle] || @person.twitter_handle,
-      personal_blog_url: params[:personal_blog_url] || @person.personal_blog_url,
-      online_resume_url: params[:online_resume_url] || @person.online_resume_url,
-      github_url: params[:github_url] || @person.github_url,
-      photo: params[:photo] || @person.photo,
-      password: params[:password] || @person.password,
-      password_confirmation: params[:password_confirmation] || @person.password_confirmation,
-    )
-    render :show
+    # pp @person
+    # pp current_person
+    if @person == current_person
+      @person.update(
+        first_name: params[:first_name] || @person.first_name,
+        last_name: params[:last_name] || @person.last_name,
+        email: params[:email] || @person.email,
+        phone_number: params[:phone_number] || @person.phone_number,
+        short_bio: params[:short_bio] || @person.short_bio,
+        linkedin_url: params[:linkedin_url] || @person.linkedin_url,
+        twitter_handle: params[:twitter_handle] || @person.twitter_handle,
+        personal_blog_url: params[:personal_blog_url] || @person.personal_blog_url,
+        online_resume_url: params[:online_resume_url] || @person.online_resume_url,
+        github_url: params[:github_url] || @person.github_url,
+        photo: params[:photo] || @person.photo,
+        password: params[:password] || @person.password,
+        password_confirmation: params[:password_confirmation] || @person.password_confirmation,
+      )
+      render :show
+    else
+      render json: { error: "Unauthorized" }, status: :unauthorized
+    end
   end
 
   def destroy
